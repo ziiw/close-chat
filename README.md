@@ -1,4 +1,43 @@
-# Next.JS Redux Styled Component
+# Close
+
+## Prerequisities
+Install the Firebase CLI
+```bash
+npm install -g firebase-tools
+```
+
+Add the file `.env`
+```
+# .env
+# == Firebase app keys (staging) ==
+FIREBASE_API_KEY=
+FIREBASE_AUTH_DOMAIN=
+FIREBASE_DATABASE_URL=
+FIREBASE_PROJECT_ID=
+FIREBASE_STORAGE_BUCKET=
+FIREBASE_MESSAGING_SENDER_ID=
+FIREBASE_APP_ID=
+FIREBASE_MEASUREMENT_ID=
+```
+and the `.env.build`
+```
+# .env
+# == Firebase app keys (staging) ==
+FIREBASE_API_KEY=
+FIREBASE_AUTH_DOMAIN=
+FIREBASE_DATABASE_URL=
+FIREBASE_PROJECT_ID=
+FIREBASE_STORAGE_BUCKET=
+FIREBASE_MESSAGING_SENDER_ID=
+FIREBASE_APP_ID=
+FIREBASE_MEASUREMENT_ID=
+# == Firebase admin keys (serviceAccount-staging.json)==
+FIREBASE_CLIENT_EMAIL=
+FIREBASE_PRIVATE_KEY=
+```
+
+For staging work you should also have downloaded the private key file `.json` from the Firebase staging project and put it here `./function/serviceAccount-staging.json`
+
 
 ## Deploy your own
 
