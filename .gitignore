@@ -28,3 +28,16 @@ yarn-error.log*
 .env.development.local
 .env.test.local
 .env.production.local
+
+# secrets - staging
+.env.build
+.env
+
+## Compiled JavaScript files
+/functions/**/*.js
+/functions/**/*.js.map
+
+serviceAccount*
+/functions/serviceAccount*
+/functions/serviceAccount-staging.json
+/functions/serviceAccount-production.json
