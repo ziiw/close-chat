@@ -5,7 +5,7 @@ import thunkMiddleware from 'redux-thunk'
 import baseReducers from './reducers/'
 
 const state = { 
-  
+
 }
 
 export function initializeStore(initialState = state) {

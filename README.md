@@ -38,6 +38,8 @@ FIREBASE_PRIVATE_KEY=
 
 For staging work you should also have downloaded the private key file `.json` from the Firebase staging project and put it here `./function/serviceAccount-staging.json`
 
+## Packages
+`node-fetch`: Use to bring `fetch` on the server side (useful when SSR).
 
 ## Deploy your own
 

@@ -7,6 +7,9 @@ import * as gtag from '../lib/gtag'
 import { ThemeProvider } from 'styled-components'
 
 const theme = {
+  fonts: {
+    headings: 'Arial'
+  },
   colors: {
     primary: '#0070f3',
   },
