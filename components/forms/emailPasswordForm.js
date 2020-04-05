@@ -1,5 +1,15 @@
 import React from 'react'
+import Link from 'next/link'
 import { Field, reduxForm } from 'redux-form'
+
+const displayError = error => {
+  if (error === 'auth/wrong-password') {
+    return <p>Invalid password or email.</p>
+  } else if (error === 'auth/user-not-found') {
+    return <p>Your email does not exists, try <Link href='/join'><a>join us</a></Link> instead.</p>
+  }
+  console.log(error)
+}
 
 const EmailPasswordForm = props => {
   const { handleSubmit, pristine, reset, submitting, error } = props
@@ -27,15 +37,12 @@ const EmailPasswordForm = props => {
           />
         </div>
       </div>
-      {error && <strong>{error}</strong>}
       <div>
         <button type="submit" disabled={pristine || submitting}>
           Submit
         </button>
-        <button type="button" disabled={pristine || submitting} onClick={reset}>
-          Clear Values
-        </button>
       </div>
+      {error && displayError(error)}
     </form>
   )
 }
