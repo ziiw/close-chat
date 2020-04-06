@@ -21,7 +21,7 @@ class Index extends React.Component {
       <Fragment>
         <Title>Close</Title>
         <Link href='/signin'><a>Signin</a></Link><br></br>
-        <Link href='/Join'><a>Join</a></Link>
+        <Link href='/join'><a>Join</a></Link>
       </Fragment>
     )
   }
