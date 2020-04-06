@@ -5,7 +5,7 @@ import { ServerStyleSheet } from 'styled-components'
 import { GA_TRACKING_ID } from '../lib/gtag'
 
 export default class extends Document {
-  static async getInitialProps(ctx) {
+  static async getStaticProps(ctx) {
     const sheet = new ServerStyleSheet()
     const originalRenderPage = ctx.renderPage
 
@@ -15,7 +15,7 @@ export default class extends Document {
           enhanceApp: App => props => sheet.collectStyles(<App {...props} />),
         })
 
-      const initialProps = await Document.getInitialProps(ctx)
+      const initialProps = await Document.getStaticProps(ctx)
       return {
         ...initialProps,
         styles: (
