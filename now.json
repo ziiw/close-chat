@@ -7,7 +7,9 @@
     "FIREBASE_STORAGE_BUCKET": "@close-firebase-storage-bucket",
     "FIREBASE_MESSAGING_SENDER_ID": "@close-firebase-messaging-sender-id",
     "FIREBASE_APP_ID": "@close-firebase-app-id",
-    "FIREBASE_MEASUREMENT_ID": "@close-firebase-measurement-id"
+    "FIREBASE_MEASUREMENT_ID": "@close-firebase-measurement-id",
+    "STRIPE_SECRET_API": "@close-stripe-secret-api",
+    "STRIPE_REDIRECT_URI": "@close-stripe-redirect-uri"
   },
   "build": {
     "env": {
@@ -20,7 +22,9 @@
       "FIREBASE_APP_ID": "@close-firebase-app-id",
       "FIREBASE_MEASUREMENT_ID": "@close-firebase-measurement-id",
       "FIREBASE_CLIENT_EMAIL": "@close-firebase-client-email",
-      "FIREBASE_PRIVATE_KEY": "@close-firebase-private-key"
+      "FIREBASE_PRIVATE_KEY": "@close-firebase-private-key",
+      "STRIPE_SECRET_API": "@close-stripe-secret-api",
+      "STRIPE_REDIRECT_URI": "@close-stripe-redirect-uri"
     }
   }
 }
