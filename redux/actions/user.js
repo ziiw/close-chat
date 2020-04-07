@@ -1,5 +1,4 @@
 import fetch from 'node-fetch'
-import firebase from './../../lib/firebase'
 
 export const ACTIONS = {
   SIGNIN: 'SIGNIN'

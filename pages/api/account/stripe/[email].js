@@ -1,7 +1,7 @@
 // Set your secret key. Remember to switch to your live secret key in production!
 // See your keys here: https://dashboard.stripe.com/account/apikeys
 const stripe = require('stripe')(process.env.STRIPE_SECRET_API);
-import admin from './../../../../utils/auth/firebaseAdmin'
+import { admin } from './../../../../utils/auth/firebaseAdmin'
 
 export default async (req, res) => {
   const {

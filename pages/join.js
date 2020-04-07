@@ -2,7 +2,7 @@ import React, { Fragment, useState } from 'react'
 import Title from '../components/elements/h1'
 import EmailPasswordForm from '../components/forms/emailPasswordForm'
 import { SubmissionError } from 'redux-form'
-import firebase from './../lib/firebase'
+import firebase from './../utils/auth/initFirebase'
 import Link from 'next/link'
 
 const Join = props => {

@@ -2,7 +2,7 @@ import * as firebase from 'firebase/app'
 import 'firebase/auth'
 import 'firebase/analytics'
 
-const firebaseConfig = {
+const config = {
   apiKey: process.env.FIREBASE_API_KEY,
   authDomain: process.env.FIREBASE_AUTH_DOMAIN,
   databaseURL: process.env.FIREBASE_DATABASE_URL,
@@ -13,11 +13,15 @@ const firebaseConfig = {
   measurementId: process.env.FIREBASE_MEASUREMENT_ID
 }
 
-// Check that `window` is in scope for the analytics module!
-if (typeof window !== 'undefined' && !firebase.apps.length) {
-  firebase.initializeApp(firebaseConfig) 
-  // To enable analytics. https://firebase.google.com/docs/analytics/get-started
-  // if ('measurementId' in firebaseConfig) firebase.analytics()
+// // Check that `window` is in scope for the analytics module!
+// if (typeof window !== 'undefined' && !firebase.apps.length) {
+//   firebase.initializeApp(firebaseConfig) 
+//   // To enable analytics. https://firebase.google.com/docs/analytics/get-started
+//   // if ('measurementId' in firebaseConfig) firebase.analytics()
+// }
+
+if (!firebase.apps.length) {
+  firebase.initializeApp(config)
 }
 
 export default firebase

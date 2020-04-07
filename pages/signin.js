@@ -1,21 +1,25 @@
-import React, { Fragment, useEffect, useState } from 'react'
+import React, { Fragment, useState } from 'react'
+import { get } from 'lodash/object'
+import withAuthUser from './../utils/pageWrappers/withAuthUser'
+import withAuthUserInfo from './../utils/pageWrappers/withAuthUserInfo'
 import Title from '../components/elements/h1'
 import EmailPasswordForm from '../components/forms/emailPasswordForm'
 import { SubmissionError } from 'redux-form'
-import firebase from './../lib/firebase'
-import Router from 'next/router'
+import firebase from './../utils/auth/initFirebase'
+import { useRouter } from 'next/router'
 
-const Signin = () => {
-  const [user, setUser] = useState()
+const Signin = props => {
+  const router = useRouter()
+  const { AuthUserInfo } = props
+  const AuthUser = get(AuthUserInfo, 'AuthUser', null)
+
   const [showForm, setShowForm] = useState(false)
-
-  useEffect( () => {
-    setUser(firebase.auth().currentUser)
-  })
 
   const handleSignIn = async ({ email, password }) => {
     try {
-      const resp = await firebase.auth().signInWithEmailAndPassword(email, password)
+      console.log('handleSignin')
+      await firebase.auth().signInWithEmailAndPassword(email, password)
+      router.push('/account')
     } catch ({code, message}) {
       throw new SubmissionError({_error: code})
     }
@@ -29,18 +33,18 @@ const Signin = () => {
   return (
     <Fragment>
       <Title>Sign In</Title>
-      {user && !showForm && (
+      {AuthUser && !showForm && (
         <Fragment>
           <p>You are already connected, do you want to use this account?</p>
-          <p>{user.email}</p>
+          <p>{AuthUser.email}</p>
           <button onClick={() => Router.push('/account')}>Yes</button>
           <button onClick={handleShowForm}>Use an other one</button>
         </Fragment>
       )}
-      {(!user || showForm) && <EmailPasswordForm onSubmit={handleSignIn} />}
+      {(!AuthUser || showForm) && <EmailPasswordForm onSubmit={handleSignIn} />}
     </Fragment>
   )
 }
 
 
-export default Signin
+export default withAuthUser(withAuthUserInfo(Signin))
