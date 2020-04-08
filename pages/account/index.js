@@ -5,6 +5,7 @@ import { get } from 'lodash/object'
 import withAuthUser from './../../utils/pageWrappers/withAuthUser'
 import withAuthUserInfo from './../../utils/pageWrappers/withAuthUserInfo'
 import { useRouter } from 'next/router'
+import Nav from './../../components/nav/accountNav'
 
 const Account = props => {
   const router = useRouter()
@@ -23,13 +24,14 @@ const Account = props => {
       const api_route = '/api/account/stripe'
       const host = window.location.host
       const protocol = host.indexOf('localhost') === -1 ? 'https://' : 'http://'
-      setRedirectURI(`${protocol}${host}${api_route}/${AuthUser && AuthUser.email}`)
+      setRedirectURI(`${protocol}${host}${api_route}`)
     }
   })
 
   return (
     <Fragment>
       <Title>Account</Title><br />
+      <Nav />
       {AuthUser && <button onClick={signout}>Sign out</button>}
       {AuthUser && <p>{`Hello ${AuthUser.email}`}</p>}
       {AuthUser && AuthUser.emailVerified && <p>{`You email is valid`}</p>}
