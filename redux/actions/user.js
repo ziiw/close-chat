@@ -39,7 +39,7 @@ export const getCommunities = creatorId => {
 
     if (!snap.empty) {
       snap.forEach(doc => {
-        communities = [...communities, doc.data()]
+        communities = [...communities, {id: doc.id, ...doc.data()}]
       })
     } 
 

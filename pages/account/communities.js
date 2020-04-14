@@ -1,5 +1,6 @@
 import { Fragment, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import Link from 'next/link'
 import { get } from 'lodash/object'
 import Title from './../../components/elements/h1'
 import Nav from './../../components/nav/accountNav'
@@ -27,7 +28,16 @@ const Communities = props => {
       <Nav />
       <button onClick={handleCreate}>Create a community</button>
       <h3>Your communities</h3>
-      {communities.map(community => <p key={community.created}>{community.displayName}</p>)}
+      {communities.map(community => {
+        return (
+          <div key={community.created}>
+            <p>{community.displayName}</p>
+            <Link href='/community/[id]' as={`/community/${community.id}`}>
+              <a target='_blank'>open subscribe page</a>
+            </Link>
+          </div>
+        )
+      })}
     </Fragment>
   )
 } 
