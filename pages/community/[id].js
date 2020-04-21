@@ -1,9 +1,9 @@
 import Head from 'next/head'
 
-function Community ({community, session}) {
+function Community ({community, session, creatorPrivate}) {
 
   const handleCheckoutStripe = async () => {
-    const stripe = Stripe('pk_test_W2mEvplcIN0CPVy6aGwU1tpl004Qcg66XH')
+    const stripe = Stripe('pk_test_W2mEvplcIN0CPVy6aGwU1tpl004Qcg66XH', {stripeAccount: creatorPrivate.stripeUserId})
     const {error} = await stripe.redirectToCheckout({
       // Make the id field from the Checkout Session creation API response
       // available to this file, so you can provide it as parameter here
@@ -57,16 +57,34 @@ export async function getServerSideProps ({req, res}) {
     overwrite: true,
   })
   includeSession(req, res, () => {})
-  
+
   const {
     url,
-    session: {decodedToken}
+    session: { decodedToken }
   } = req
+  
+  const communityID = url.split('/community/')[1]
 
   try {
-    const ref = admin().firestore().collection('communities').doc(url.split('/community/')[1])
+    const ref = admin().firestore().collection('communities').doc(communityID)
     const snap = await ref.get()
     const community = snap.data()
+
+    // If not logged-in
+    // if (!decodedToken) {
+    //   return { props: { community }}
+    // }
+
+    // TODO: Check if the user is already a subscriber
+    // 
+    // const refUser = admin().firestore().collection('users').doc(decodedToken.user_id)
+    // const snapUser = await refUser.get()
+    // const user = snapUser.data()
+
+    // // If is a subscriber
+    // if (user && user.communities.includes(communityID)) {
+    //   return { props: { community, isSubscribed: true }}
+    // }
 
     if (community && (community.public || community.ownerId === decodedToken.user_id)) {
 
@@ -74,42 +92,27 @@ export async function getServerSideProps ({req, res}) {
       const snapCreator = await refCreator.get()
       let creatorPrivate
       snapCreator.forEach(doc => { creatorPrivate = doc.data() })
-      
-      // TODO: Convert in Plan and not unique Product
-      // use: 
-      //// Create new Checkout Session for the order
-      // Other optional params include:
-      // [billing_address_collection] - to display billing address details on the page
-      // [customer] - if you have an existing Stripe Customer ID
-      // [customer_email] - lets you prefill the email input in the form
-      
-      // session = await stripe.checkout.sessions.create({
-      //   payment_method_types: ["card"],
-      //   subscription_data: { items: [{ plan: planId }] },
-      //   // ?session_id={CHECKOUT_SESSION_ID} means the redirect will have the session ID set as a query param
-      //   success_url: `${domainURL}/success.html?session_id={CHECKOUT_SESSION_ID}`,
-      //   cancel_url: `${domainURL}/canceled.html`
-      // });
-      
+
+      const api_route = `/community/${communityID}`
+      const host = req.headers.host
+      const protocol = host.indexOf('localhost') === -1 ? 'https://' : 'http://'
+      const redirectURI = `${protocol}${host}${api_route}`
+
       const session = await stripe.checkout.sessions.create({
         payment_method_types: ['card'],
-        line_items: [{
-          name: `Close - ${community.displayName}`,
-          amount: 1000,
-          currency: 'eur',
-          quantity: 1,
-        }],
-        payment_intent_data: {
-          application_fee_amount: 200,
-          transfer_data: {
-            destination: creatorPrivate.stripeUserId,
-          },
+        subscription_data: {
+          items: [{
+            plan: community.stripe_plan,
+          }],
+          application_fee_percent: 20,
         },
-        success_url: 'https://example.com/success',
-        cancel_url: 'https://example.com/failure',
+        success_url: `${redirectURI}?success=true`,
+        cancel_url: `${redirectURI}?success=false`,
+      }, {
+        stripeAccount: creatorPrivate.stripeUserId,
       });
 
-      return {props: { community, session }}
+      return {props: { community, session, creatorPrivate }}
     }
   } catch (error) {
     console.log(error)

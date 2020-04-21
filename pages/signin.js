@@ -37,7 +37,7 @@ const Signin = props => {
         <Fragment>
           <p>You are already connected, do you want to use this account?</p>
           <p>{AuthUser.email}</p>
-          <button onClick={() => Router.push('/account')}>Yes</button>
+          <button onClick={() => router.push('/account')}>Yes</button>
           <button onClick={handleShowForm}>Use an other one</button>
         </Fragment>
       )}

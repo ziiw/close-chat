@@ -36,7 +36,7 @@ const Account = props => {
       {AuthUser && <p>{`Hello ${AuthUser.email}`}</p>}
       {AuthUser && AuthUser.emailVerified && <p>{`You email is valid`}</p>}
       {AuthUser && !AuthUser.emailVerified && <p>{`You email is not validated`}</p>}
-      {AuthUser && redirectURI && <a href={`https://connect.stripe.com/express/oauth/authorize?redirect_uri=${redirectURI}&client_id=ca_H1BEnLhjmtGa2SV3dQWV3KFz3kgg24zx&state=234jkbkbu234bkjui99eff4b&stripe_user[business_type]=individual&stripe_user[email]=${AuthUser.email}`}>Connect with Stripe</a>}
+      {AuthUser && redirectURI && <a href={`https://connect.stripe.com/express/oauth/authorize?redirect_uri=${redirectURI}&client_id=ca_H1BEnLhjmtGa2SV3dQWV3KFz3kgg24zx&state=234jkbkbu234bkjui99eff4b&stripe_user[business_type]=individual&stripe_user[email]=${AuthUser.email}&suggested_capabilities[]=card_payments`}>Connect with Stripe</a>}
     </Fragment>
   )
 } 
