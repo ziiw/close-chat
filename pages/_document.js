@@ -7,7 +7,7 @@ import { ServerStyleSheet } from 'styled-components'
 import { GA_TRACKING_ID } from '../lib/gtag'
 
 class CustomDocument extends Document {
-  static async getServerSideProps(ctx) {
+  static async getInitialProps(ctx) {
     // Get the AuthUserInfo object. This is set if the server-rendered page
     // is wrapped in the `withAuthUser` higher-order component.
     const AuthUserInfo = get(ctx, 'myCustomData.AuthUserInfo', null)
@@ -21,7 +21,7 @@ class CustomDocument extends Document {
           enhanceApp: App => props => sheet.collectStyles(<App {...props} />),
         })
 
-      const initialProps = await Document.getServerSideProps(ctx)
+      const initialProps = await Document.getInitialProps(ctx)
       return {
         ...initialProps,
         AuthUserInfo,
