@@ -1,4 +1,5 @@
 import App from 'next/app'
+import Head from 'next/head'
 import React from 'react'
 import Router from 'next/router'
 import withReduxStore from '../lib/with-redux-store'
@@ -8,15 +9,23 @@ import { ThemeProvider, createGlobalStyle } from 'styled-components'
 
 const theme = {
   fonts: {
-    headings: 'Arial'
+    headings: {
+      family: 'Product Sans Bold'
+    }
   },
   colors: {
     primary: '#0070f3',
+    lightBlue: '#D9DCE8',
+    darkBlue: '#2D3543',
     background: '#FFC57A'
   },
 }
 
 const GlobalStyle = createGlobalStyle`
+  * {
+    box-sizing: border-box;
+  }
+
   body {
     margin: 0;
     font-family: Arial;
@@ -26,19 +35,22 @@ const GlobalStyle = createGlobalStyle`
 
 Router.events.on('routeChangeComplete', url => gtag.pageview(url))
 
-class MyApp extends App {
-
-  render() {
-    const { Component, pageProps, reduxStore } = this.props
-    return (
+const Close = props => {
+  const { Component, pageProps, reduxStore } = props
+  
+  return (
+    <>
+      <Head>
+        <title>💬 Close</title>
+      </Head>
       <Provider store={reduxStore}>
         <ThemeProvider theme={theme}>
           <GlobalStyle />
           <Component {...pageProps} />
         </ThemeProvider> 
       </Provider>
-    )
-  }
+    </>
+  )
 }
 
-export default withReduxStore(MyApp)
+export default withReduxStore(Close)

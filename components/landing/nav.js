@@ -1,29 +1,31 @@
 import styled from 'styled-components'
 import Link from 'next/link'
+import { useEffect } from 'react'
 
 const Wrapper = styled.div`
   position: fixed;
+  top: 0px;
   width: 100%;
   display: flex;
   justify-content: space-between;
   padding: 2em;
-  box-sizing: border-box;
 `
 
 const Logo = styled.div`
   span {
     position: relative;
-    top: 3px;
-    height: 1em;
+    top: 4px;
+    height: 1.1em;
     width: 3px;
     display: inline-block;
-    background-color: white;
+    background-color: ${props => props.light ? props.theme.colors.darkBlue : 'white'};
     margin-right: 10px;
   }
   a {
-    color: black;
+    color: ${props => props.theme.colors.darkBlue};
     text-decoration: none;
     margin-right: 10px;
+    font-family: 'Product Sans Medium', Arial, sans-serif;
   }
 `
 
@@ -34,15 +36,25 @@ const Menu = styled.div`
   border-bottom: 2px solid black;
 `
 
-export const Nav = () => {
+export const Nav = props => {
+  let isMobile = false
+
+  useEffect(() => {
+    isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
+  }, [])
+  
   return (
     <Wrapper>
-      <Logo>
-        <Link href={'/'}><a>Close</a></Link><span />
-        <Link href='/signin'><a>Signin</a></Link>
-        <Link href='/join'><a>Join</a></Link>
+      <Logo light={props.light}>
+        <Link href={'/'}><a>close</a></Link><span />
+        {!isMobile && !props.light && (
+          <>
+            <Link href='/signin'><a>signin</a></Link>
+            <Link href='/join'><a>join</a></Link>
+          </>
+        )}
       </Logo>
-      <Menu />
+      {isMobile && <Menu />}
     </Wrapper>
   )
 }

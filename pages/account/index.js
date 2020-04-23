@@ -20,6 +20,10 @@ const Account = props => {
   }
 
   useEffect(() => {
+    if (!AuthUser) {
+      router.replace('/')
+    }
+    
     if (!redirectURI) {
       const api_route = '/api/account/stripe'
       const host = window.location.host
@@ -39,6 +43,6 @@ const Account = props => {
       {AuthUser && redirectURI && <a href={`https://connect.stripe.com/express/oauth/authorize?redirect_uri=${redirectURI}&client_id=ca_H1BEnLhjmtGa2SV3dQWV3KFz3kgg24zx&state=234jkbkbu234bkjui99eff4b&stripe_user[business_type]=individual&stripe_user[email]=${AuthUser.email}&suggested_capabilities[]=card_payments`}>Connect with Stripe</a>}
     </Fragment>
   )
-} 
+}
 
 export default withAuthUser(withAuthUserInfo(Account))

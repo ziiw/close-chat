@@ -5,5 +5,5 @@ export default styled.h1`
   background-clip: text;
   color: transparent;
   display: inline-block;
-  font-family: ${props => props.theme.fonts.headings}
+  font-family: ${props => props.theme.fonts.headings.family}, Arial, sans-serif;
 `

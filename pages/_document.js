@@ -71,6 +71,19 @@ class CustomDocument extends Document {
           `,
             }}
           />
+          <style dangerouslySetInnerHTML={{__html: `
+            @font-face {  
+              font-family: 'Product Sans Medium';
+              font-weight: 500;
+              src: url('./fonts/ProductSans-Medium.ttf');
+            }
+            @font-face {  
+              font-family: 'Product Sans Bold';
+              font-weight: 700;
+              src: url('./fonts/ProductSans-Bold.ttf');
+            }
+          }
+          `}}/>
         </Head>
         <body>
           <Main />

@@ -7,6 +7,11 @@ import EmailPasswordForm from '../components/forms/emailPasswordForm'
 import { SubmissionError } from 'redux-form'
 import firebase from './../utils/auth/initFirebase'
 import { useRouter } from 'next/router'
+import styled from 'styled-components'
+
+const Wrapper = styled.div`
+
+`
 
 const Signin = props => {
   const router = useRouter()
@@ -32,16 +37,18 @@ const Signin = props => {
 
   return (
     <Fragment>
-      <Title>Sign In</Title>
-      {AuthUser && !showForm && (
-        <Fragment>
-          <p>You are already connected, do you want to use this account?</p>
-          <p>{AuthUser.email}</p>
-          <button onClick={() => router.push('/account')}>Yes</button>
-          <button onClick={handleShowForm}>Use an other one</button>
-        </Fragment>
-      )}
-      {(!AuthUser || showForm) && <EmailPasswordForm onSubmit={handleSignIn} />}
+      <Wrapper>
+        <Title>Sign In</Title>
+        {AuthUser && !showForm && (
+          <Fragment>
+            <p>You are already connected, do you want to use this account?</p>
+            <p>{AuthUser.email}</p>
+            <button onClick={() => router.push('/account')}>Yes</button>
+            <button onClick={handleShowForm}>Use an other one</button>
+          </Fragment>
+        )}
+        {(!AuthUser || showForm) && <EmailPasswordForm onSubmit={handleSignIn} />}
+      </Wrapper>
     </Fragment>
   )
 }
